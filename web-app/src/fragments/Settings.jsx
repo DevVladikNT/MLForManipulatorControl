@@ -16,7 +16,6 @@ function Settings(props) {
     const [G1, setG1] = useState(6);
     const [G2, setG2] = useState(4);
     const [M, setM] = useState(1);
-    const [type, setType] = useState('nn');
 
     const [targetA1, setTargetA1] = useState(0);
     const [targetA2, setTargetA2] = useState(0);
@@ -33,7 +32,7 @@ function Settings(props) {
             'target_angles': [targetA1, targetA2, targetA3],
             'target_time': targetTime,
         };
-        const result = await axios.post(`http://localhost:2000/${type}`, data).catch((error) => {
+        const result = await axios.post(`http://localhost:2000/${props.type}`, data).catch((error) => {
         });
         props.setAnimationData(result.data);
     };
@@ -119,7 +118,7 @@ function Settings(props) {
             <Divider/>
 
             <Flex className="gap-4">
-                {type == 'simple' ?
+                {props.type == 'simple' ?
                 <>
                     <Flex flexDirection="col">
                         <Text className="self-start mb-2">Время выполнения:</Text>
@@ -162,7 +161,7 @@ function Settings(props) {
                 </div>
             </Flex>
 
-            {type == 'simple' ?
+            {props.type == 'simple' ?
             <>
                 <Divider/>
                 <Text className="mb-2">Целевые углы:</Text>
@@ -192,9 +191,9 @@ function Settings(props) {
 
             <Flex className="gap-4">
                 <Select
-                    value={type}
-                    onValueChange={setType}>
-                    <SelectItem value="simple">Релейный алгоритм</SelectItem>
+                    value={props.type}
+                    onValueChange={props.setType}>
+                    <SelectItem value="simple">Релейное управление</SelectItem>
                     <SelectItem value="greedy">Жадный алгоритм</SelectItem>
                     <SelectItem value="nn">Нейросетевой алгоритм</SelectItem>
                 </Select>
@@ -203,6 +202,12 @@ function Settings(props) {
                     onClick={get_animation}
                 >Выполнить</Button>
             </Flex>
+
+            <Button
+                className="mt-6"
+                onClick={() => props.setNeedHelp(!props.needHelp)}
+                variant="secondary"
+            >Помощь</Button>
 
         </Card> 
     );

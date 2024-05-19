@@ -1,6 +1,9 @@
 import axios from "axios";
 import { Card, Flex, Button, TextInput, Text, Title, Metric, Divider, LineChart} from "@tremor/react";
 import { useEffect, useState, useRef } from "react";
+import clsx from "clsx";
+
+import Help from './Help';
 
 function AnimationWindow(props) {
 
@@ -15,7 +18,11 @@ function AnimationWindow(props) {
             ctx.strokeStyle = 'white';
 
             ctx.beginPath();
-            ctx.arc(percentSize/2 + goal[0]*percentSize/2, percentSize/2 - goal[1]*percentSize/2, 15 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI);
+            ctx.arc(percentSize/2 + goal[0]*percentSize/2,
+                    percentSize/2 - goal[1]*percentSize/2,
+                    15 * Math.sin(frameCount * 0.05) ** 2 * (props.type == 'simple' ? 0 : 1),
+                    0,
+                    2 * Math.PI);
             ctx.fill();
             ctx.closePath();
 
@@ -46,7 +53,7 @@ function AnimationWindow(props) {
             ctx.lineTo(percentSize/2 + first[0], percentSize/2 - first[1]);
             ctx.lineTo(percentSize/2 + second[0], percentSize/2 - second[1]);
             ctx.lineTo(percentSize/2 + third[0], percentSize/2 - third[1]);
-            ctx.lineWidth = percentSize/50;
+            ctx.lineWidth = percentSize/60;
             ctx.stroke();
             ctx.closePath();
         }
@@ -77,23 +84,35 @@ function AnimationWindow(props) {
         return () => {
           window.cancelAnimationFrame(animationFrameId);
         };
-      }, [props]);
+      }, [props.animationData]);
 
     return (
         <Card className="mr-4 mt-4 min-w-[300px] flex flex-col gap-4">
-            <canvas
-                width={`${(window.devicePixelRatio || 1) * percentSize}%`}
-                height={`${(window.devicePixelRatio || 1) * percentSize}%`}
-                className="w-full aspect-square"
-                ref={canvasRef}
-            />
-            <LineChart 
-                className="max-h-[200px]"
-                index="step"
-                categories={['Звено 1', 'Звено 2', 'Звено 3']}
-                data={accelArr}
-                showAnimation
-            />
+            <div
+                className="relative">
+                <div
+                    className={clsx(props.needHelp && "invisible")}>
+                    <canvas
+                        width={`${(window.devicePixelRatio || 1) * percentSize}%`}
+                        height={`${(window.devicePixelRatio || 1) * percentSize}%`}
+                        className="w-full aspect-square"
+                        ref={canvasRef}
+                    />
+                    <Title className="text-right">Управление</Title>
+                    <LineChart 
+                        className="max-h-[200px]"
+                        index="step"
+                        categories={['Звено 1', 'Звено 2', 'Звено 3']}
+                        data={accelArr}
+                        showAnimation
+                    />
+                </div>
+                
+                <div
+                    className={clsx("absolute inset-0 overflow-y-auto no-scrollbar break-words", !props.needHelp && "hidden")}>
+                    <Help/>
+                </div>
+            </div>
         </Card> 
     );
 

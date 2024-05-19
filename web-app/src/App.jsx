@@ -8,17 +8,26 @@ import AnimationWindow from './fragments/AnimationWindow';
 import Settings from './fragments/Settings';
 
 function App() {
+  const [type, setType] = useState('nn');
   const [animationData, setAnimationData] = useState({});
+  const [needHelp, setNeedHelp] = useState(false);
 
   return (
     <>
       <Flex
         flexDirection='row'
-        alignItems='stretch'>
+        alignItems='start'>
           <AnimationWindow
-            animationData={animationData}/>
+            type={type}
+            animationData={animationData}
+            needHelp={needHelp}/>
+          
           <Settings
-            setAnimationData={setAnimationData}/>
+            type={type}
+            setType={setType}
+            setAnimationData={setAnimationData}
+            needHelp={needHelp}
+            setNeedHelp={setNeedHelp}/>
       </Flex>
     </>
   )
