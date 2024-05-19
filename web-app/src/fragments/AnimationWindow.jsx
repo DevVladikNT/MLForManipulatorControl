@@ -11,11 +11,11 @@ function AnimationWindow(props) {
     const draw = (ctx, frameCount, coordArr, goal) => {
         if (coordArr && Math.floor(frameCount/10) < coordArr.length) {
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-            ctx.fillStyle = 'blue';
+            ctx.fillStyle = 'white';
             ctx.strokeStyle = 'white';
 
             ctx.beginPath();
-            ctx.arc(percentSize/2 + goal[0]*percentSize/2, percentSize/2 - goal[1]*percentSize/2, 5 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI);
+            ctx.arc(percentSize/2 + goal[0]*percentSize/2, percentSize/2 - goal[1]*percentSize/2, 15 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI);
             ctx.fill();
             ctx.closePath();
 

@@ -19,7 +19,6 @@ class Manipulator:
     current_moment = 0
     energy_lost = 0
 
-    # accel_limit = np.array([np.pi/10, np.pi/10, np.pi/10])
     accel_limit = np.array([np.pi/100, np.pi/100, np.pi/100])
     goal_delta = 0
     g = 9.8
@@ -113,11 +112,6 @@ class Manipulator:
 
     def get_correct_accel(self, accel: list, prediction: bool = False, disable_direction: bool = False):
         if not prediction and not disable_direction:
-            # point = np.sum(self.get_coord(), axis=0)
-            # goal = 0 if self.goal is None else self.goal
-            # distance = np.sum(np.power(np.abs(goal - point), 2))
-            # distance_k = distance / np.sum(np.power(self.length, 2))
-
             direction = np.array(accel) * self.adaptive_accel
             for i in range(len(accel)):
                 if direction[i] < 0:
