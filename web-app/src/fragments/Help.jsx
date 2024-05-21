@@ -1,8 +1,6 @@
-import axios from "axios";
-import { Card, Flex, Button, TextInput, Text, Title, Metric, Divider, LineChart, AccordionList, Accordion, AccordionHeader, AccordionBody, Badge} from "@tremor/react";
-import { useEffect, useState, useRef } from "react";
+import { Button, Text, Title, Divider, AccordionList, Accordion, AccordionHeader, AccordionBody} from "@tremor/react";
 
-function Help(props) {
+function Help() {
     return (
         <div>
             <Title

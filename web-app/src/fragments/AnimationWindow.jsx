@@ -1,5 +1,4 @@
-import axios from "axios";
-import { Card, Flex, Button, TextInput, Text, Title, Metric, Divider, LineChart} from "@tremor/react";
+import { Card, Title, LineChart} from "@tremor/react";
 import { useEffect, useState, useRef } from "react";
 import clsx from "clsx";
 

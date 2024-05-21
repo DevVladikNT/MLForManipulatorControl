@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Card, Flex, Button, NumberInput, Text, Title, Metric, Divider, Select, SelectItem} from "@tremor/react";
-import { useEffect, useState, useRef } from "react";
+import { Card, Flex, Button, NumberInput, Text, Divider, Select, SelectItem} from "@tremor/react";
+import { useState} from "react";
 
 function Settings(props) {
 
